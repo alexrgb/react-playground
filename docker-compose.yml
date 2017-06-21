@@ -1,0 +1,41 @@
+version: "2"
+services:
+
+  back:
+    container_name: ${COMPOSE_PROJECT_NAME}_node
+
+    image: node
+
+    build:
+      context: .
+      dockerfile: .docker/node/Dockerfile
+
+    volumes:
+      - "./app/node:/usr/src"
+
+    ports:
+      - "${NODE_APP_OUT_PORT}:${APP_PORT}"
+
+    environment:
+      APP_PORT: ${APP_PORT}
+      APP_OUT_PORT: ${NODE_APP_OUT_PORT}
+
+  front:
+    container_name: ${COMPOSE_PROJECT_NAME}_react
+
+    image: node
+
+    build:
+      context: .
+      dockerfile: .docker/react/Dockerfile
+
+    volumes:
+      - "./app/react:/usr/src"
+
+    ports:
+     - "${REACT_APP_OUT_PORT}:${APP_PORT}"
+
+    environment:
+          API_URL: "http://back:${REACT_APP_OUT_PORT}"
+          APP_PORT: ${APP_PORT}
+          APP_OUT_PORT: ${REACT_APP_OUT_PORT}

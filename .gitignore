@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+.idea
+.env
+app/node/node_modules/
+app/react/node_modules/
+app/react/static/
+app/node/dist/
